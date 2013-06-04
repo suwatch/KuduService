@@ -1,0 +1,557 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Kudu.Services</name>
+    </assembly>
+    <members>
+        <member name="T:Kudu.Services.ByteRanges.ByteRangeStream">
+            <summary>
+            Stream which only exposes a read-only only range view of an inner stream.
+            </summary>
+        </member>
+        <member name="M:Kudu.Services.ByteRanges.ByteRangeStream.PrepareStreamForRangeRead(System.Int32)">
+            <summary>
+            Gets the 
+            </summary>
+            <param name="count">The count requested to be read by the caller.</param>
+            <returns>The remaining bytes to read within the range defined for this stream.</returns>
+        </member>
+        <member name="T:Kudu.Services.ByteRanges.ByteRangeStreamContent">
+            <summary>
+            <see cref="T:System.Net.Http.HttpContent"/> implementation which provides a byte range view over a stream used to generate HTTP
+            206 (Partial Content) byte range responses. The <see cref="T:Kudu.Services.ByteRanges.ByteRangeStreamContent"/> supports one or more 
+            byte ranges regardless of whether the ranges are consecutive or not. If there is only one range then a 
+            single partial response body containing a Content-Range header is generated. If there are more than one
+            ranges then a multipart/byteranges response is generated where each body part contains a range indicated
+            by the associated Content-Range header field.
+            </summary>
+        </member>
+        <member name="M:Kudu.Services.ByteRanges.ByteRangeStreamContent.#ctor(System.IO.Stream,System.Net.Http.Headers.RangeHeaderValue,System.String)">
+            <summary>
+            <see cref="T:System.Net.Http.HttpContent"/> implementation which provides a byte range view over a stream used to generate HTTP
+            206 (Partial Content) byte range responses. If none of the requested ranges overlap with the current extend 
+            of the selected resource represented by the <paramref name="content"/> parameter then an 
+            <see cref="T:Kudu.Services.ByteRanges.InvalidByteRangeException"/> is thrown indicating the valid Content-Range of the content. 
+            </summary>
+            <param name="content">The stream over which to generate a byte range view.</param>
+            <param name="range">The range or ranges, typically obtained from the Range HTTP request header field.</param>
+            <param name="mediaType">The media type of the content stream.</param>
+        </member>
+        <member name="M:Kudu.Services.ByteRanges.ByteRangeStreamContent.#ctor(System.IO.Stream,System.Net.Http.Headers.RangeHeaderValue,System.String,System.Int32)">
+            <summary>
+            <see cref="T:System.Net.Http.HttpContent"/> implementation which provides a byte range view over a stream used to generate HTTP
+            206 (Partial Content) byte range responses. If none of the requested ranges overlap with the current extend 
+            of the selected resource represented by the <paramref name="content"/> parameter then an 
+            <see cref="T:Kudu.Services.ByteRanges.InvalidByteRangeException"/> is thrown indicating the valid Content-Range of the content. 
+            </summary>
+            <param name="content">The stream over which to generate a byte range view.</param>
+            <param name="range">The range or ranges, typically obtained from the Range HTTP request header field.</param>
+            <param name="mediaType">The media type of the content stream.</param>
+            <param name="bufferSize">The buffer size used when copying the content stream.</param>
+        </member>
+        <member name="M:Kudu.Services.ByteRanges.ByteRangeStreamContent.#ctor(System.IO.Stream,System.Net.Http.Headers.RangeHeaderValue,System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            <see cref="T:System.Net.Http.HttpContent"/> implementation which provides a byte range view over a stream used to generate HTTP
+            206 (Partial Content) byte range responses. If none of the requested ranges overlap with the current extend 
+            of the selected resource represented by the <paramref name="content"/> parameter then an 
+            <see cref="T:Kudu.Services.ByteRanges.InvalidByteRangeException"/> is thrown indicating the valid Content-Range of the content. 
+            </summary>
+            <param name="content">The stream over which to generate a byte range view.</param>
+            <param name="range">The range or ranges, typically obtained from the Range HTTP request header field.</param>
+            <param name="mediaType">The media type of the content stream.</param>
+        </member>
+        <member name="M:Kudu.Services.ByteRanges.ByteRangeStreamContent.#ctor(System.IO.Stream,System.Net.Http.Headers.RangeHeaderValue,System.Net.Http.Headers.MediaTypeHeaderValue,System.Int32)">
+            <summary>
+            <see cref="T:System.Net.Http.HttpContent"/> implementation which provides a byte range view over a stream used to generate HTTP
+            206 (Partial Content) byte range responses. If none of the requested ranges overlap with the current extend 
+            of the selected resource represented by the <paramref name="content"/> parameter then an 
+            <see cref="T:Kudu.Services.ByteRanges.InvalidByteRangeException"/> is thrown indicating the valid Content-Range of the content. 
+            </summary>
+            <param name="content">The stream over which to generate a byte range view.</param>
+            <param name="range">The range or ranges, typically obtained from the Range HTTP request header field.</param>
+            <param name="mediaType">The media type of the content stream.</param>
+            <param name="bufferSize">The buffer size used when copying the content stream.</param>
+        </member>
+        <member name="T:Kudu.Services.ByteRanges.InvalidByteRangeException">
+            <summary>
+            An exception thrown by <see cref="T:Kudu.Services.ByteRanges.ByteRangeStreamContent"/> in case none of the requested ranges 
+            overlap with the current extend of the selected resource. The current extend of the resource
+            is indicated in the ContentRange property.
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.ByteRanges.InvalidByteRangeException.ContentRange">
+            <summary>
+            The current extend of the resource indicated in terms of a ContentRange header field.
+            </summary>
+        </member>
+        <member name="M:Kudu.Services.Commands.CommandController.ExecuteCommand(Newtonsoft.Json.Linq.JObject)">
+            <summary>
+            Executes an arbitrary command line and return its output
+            </summary>
+            <param name="input">The command line to execute</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kudu.Services.Deployment.DeploymentController.Delete(System.String)">
+            <summary>
+            Delete a deployment
+            </summary>
+            <param name="id">id of the deployment to delete</param>
+        </member>
+        <member name="M:Kudu.Services.Deployment.DeploymentController.Deploy(System.String)">
+            <summary>
+            Deploy a previous deployment
+            </summary>
+            <param name="id">id of the deployment to redeploy</param>
+        </member>
+        <member name="M:Kudu.Services.Deployment.DeploymentController.GetDeployResults">
+            <summary>
+            Get the list of all deployments
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Kudu.Services.Deployment.DeploymentController.GetLogEntry(System.String)">
+            <summary>
+            Get the list of log entries for a deployment
+            </summary>
+            <param name="id">id of the deployment</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kudu.Services.Deployment.DeploymentController.GetLogEntryDetails(System.String,System.String)">
+            <summary>
+            Get the list of log entry details for a log entry
+            </summary>
+            <param name="id">id of the deployment</param>
+            <param name="logId">id of the log entry</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kudu.Services.Deployment.DeploymentController.GetResult(System.String)">
+            <summary>
+            Get a deployment
+            </summary>
+            <param name="id">id of the deployment</param>
+            <returns></returns>
+        </member>
+        <member name="T:Kudu.Services.Editor.VfsController">
+            <summary>
+            A Virtual File System controller which exposes GET, PUT, and DELETE for the entire Kudu file system.
+            </summary>
+        </member>
+        <member name="T:Kudu.Services.Infrastructure.VfsControllerBase">
+            <summary>
+            Provides common functionality for Virtual File System controllers.
+            </summary>
+        </member>
+        <member name="M:Kudu.Services.Infrastructure.VfsControllerBase.IsRangeRequest(System.Net.Http.Headers.EntityTagHeaderValue)">
+            <summary>
+            Indicates whether this is a conditional range request containing an
+            If-Range header with a matching etag and a Range header indicating the 
+            desired ranges
+            </summary>
+        </member>
+        <member name="M:Kudu.Services.Infrastructure.VfsControllerBase.IsIfNoneMatchRequest(System.Net.Http.Headers.EntityTagHeaderValue)">
+            <summary>
+            Indicates whether this is a If-None-Match request with a matching etag.
+            </summary>
+        </member>
+        <member name="M:Kudu.Services.Infrastructure.VfsControllerBase.GetFileReadStream(System.String)">
+            <summary>
+            Provides a common way for opening a file stream for shared reading from a file.
+            </summary>
+        </member>
+        <member name="M:Kudu.Services.Infrastructure.VfsControllerBase.GetFileWriteStream(System.String,System.Boolean)">
+            <summary>
+            Provides a common way for opening a file stream for writing exclusively to a file. 
+            </summary>
+        </member>
+        <member name="M:Kudu.Services.Infrastructure.VfsControllerBase.GetFileDeleteStream(System.String)">
+            <summary>
+            Provides a common way for opening a file stream for exclusively deleting the file. 
+            </summary>
+        </member>
+        <member name="M:Kudu.Services.Editor.VfsController.CreateEntityTag(System.IO.FileSystemInfo)">
+            <summary>
+            Create unique etag based on the last modified UTC time
+            </summary>
+        </member>
+        <member name="T:Kudu.Services.ServiceHookHandlers.GitHubCompatHandler">
+            <summary>
+            Default Servicehook Handler, uses github format.
+            </summary>
+        </member>
+        <member name="M:Kudu.Services.ServiceHookHandlers.IServiceHookHandler.TryParseDeploymentInfo(System.Web.HttpRequestBase,Newtonsoft.Json.Linq.JObject,System.String,Kudu.Services.ServiceHookHandlers.DeploymentInfo@)">
+            <param name="request">The incoming request.</param>
+            <param name="payload">The parsed payload from the request.</param>
+            <param name="targetBranch">The branch configured for deployment.</param>
+            <param name="deploymentInfo">The parsed deployment info if successful and matches the target branch, null otherwise.</param>
+            <returns>True if successfully parsed</returns>
+        </member>
+        <member name="T:Kudu.Services.ServiceHookHandlers.GenericHandler">
+            <summary>
+            Generic Servicehook Handler, uses simplest format.
+            </summary>
+        </member>
+        <member name="T:Kudu.Services.ByteRanges.HttpRequestMessageExtensions">
+            <summary>
+            Provides extension methods for the <see cref="T:System.Net.Http.HttpRequestMessage"/> class.
+            </summary>
+        </member>
+        <member name="M:Kudu.Services.ByteRanges.HttpRequestMessageExtensions.CreateErrorResponse(System.Net.Http.HttpRequestMessage,Kudu.Services.ByteRanges.InvalidByteRangeException)">
+            <summary>
+            Helper method for creating an <see cref="T:System.Net.Http.HttpResponseMessage"/> message with a "416 (Requested Range Not Satisfiable)" status code.
+            This response can be used in combination with the <see cref="T:Kudu.Services.ByteRanges.ByteRangeStreamContent"/> to indicate that the requested range or
+            ranges do not overlap with the current resource. The response contains a "Content-Range" header indicating the valid upper and lower
+            bounds for requested ranges.
+            </summary>
+            <param name="request">The request.</param>
+            <param name="invalidByteRangeException">An <see cref="T:Kudu.Services.ByteRanges.InvalidByteRangeException"/> instance, typically thrown by a 
+            <see cref="T:Kudu.Services.ByteRanges.ByteRangeStreamContent"/> instance.</param>
+            <returns>An 416 (Requested Range Not Satisfiable) error response with a Content-Range header indicating the valid range.</returns>
+        </member>
+        <member name="T:Kudu.Services.Infrastructure.MediaTypeMap">
+            <summary>
+            Provides a cache of file name extensions to media type mappings
+            </summary>
+        </member>
+        <member name="T:Kudu.Services.ServiceHookHandlers.KilnHgHandler">
+            <summary>
+            This hook handler provides support for Fog Creek's Kiln in both a hosted and self-hosted setup.
+            
+            Both public and private repositories are supported. Public repositories will require the
+            setting value kiln.accesstoken to be left blank while private repositories will require it
+            to be set to an Access Token (write permissions are not required).
+            
+            To use a self-hosted setup you will need to add in a setting value called kiln.domain. This
+            is a regex that will be used to parse your non kilnhg.com URLs from the payload.
+            </summary>
+        </member>
+        <member name="M:Kudu.Services.ServiceHookHandlers.KilnHgHandler.IsKilnRequest(Newtonsoft.Json.Linq.JObject)">
+            <summary>
+            Verifies the payload to see if it's coming from Kiln.
+            </summary>
+            <returns>
+            true if it's assumed to be from kiln; otherwise false.
+            </returns>
+        </member>
+        <member name="M:Kudu.Services.ServiceHookHandlers.KilnHgHandler.ParseNameFromAuthor(System.String)">
+            <summary>
+            Tries to parse the user's name from a string formatted like Author Name &lt;email@address.com&gt;
+            </summary>
+            <returns>
+            The author's name if it's found; otherwise the original value.
+            </returns>
+        </member>
+        <member name="M:Kudu.Services.ServiceHookHandlers.KilnHgHandler.ParseEmailFromAuthor(System.String)">
+            <summary>
+            Tries to parse the user's email address from a string formatted like Author Name &lt;email@address.com&gt;
+            </summary>
+            <returns>
+            The author's email address if it's found; otherwise null.
+            </returns>
+        </member>
+        <member name="T:Kudu.Services.SourceControl.LiveScmEditorController">
+            <summary>
+            A Virtual File System controller which exposes GET, PUT, and DELETE for part of the Kudu file system
+            which is backed by git.
+            </summary>
+        </member>
+        <member name="T:Kudu.Services.SourceControl.LiveScmEditorController.RepositoryItemStream">
+            <summary>
+            Helper stream to ensure that we don't release the repository lock until we are finished
+            sending all the data to the client. This avoids potential conflict situations where the lock has been
+            released but the content is still being read from disk and served to the client. 
+            </summary>
+        </member>
+        <member name="M:Kudu.Services.SSHKey.SSHKeyController.SetPrivateKey">
+            <summary>
+            Set the private key. The supported key format is privacy enhanced mail (PEM)
+            </summary>
+        </member>
+        <member name="M:Kudu.Services.EnvironmentController.Get">
+            <summary>
+            Get the Kudu version
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Kudu.Services.Performance.DiagnosticsController.GetLog">
+            <summary>
+            Get all the diagnostic logs as a zip file
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Kudu.Services.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.ArgumentMustBeGreaterThanOrEqualTo">
+            <summary>
+              Looks up a localized string similar to Value must be greater than or equal to {0}..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.ByteRangeStreamContentNoRanges">
+            <summary>
+              Looks up a localized string similar to Found zero byte ranges. There must be at least one byte range provided..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.ByteRangeStreamContentNotBytesRange">
+            <summary>
+              Looks up a localized string similar to The range unit &apos;{0}&apos; is not valid. The range must have a unit of &apos;{1}&apos;..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.ByteRangeStreamEmpty">
+            <summary>
+              Looks up a localized string similar to The stream over which &apos;{0}&apos; provides a range view must have a length greater than or equal to 1..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.ByteRangeStreamInvalidFrom">
+            <summary>
+              Looks up a localized string similar to The &apos;From&apos; value of the range must be less than or equal to {0}..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.ByteRangeStreamNoneOverlap">
+            <summary>
+              Looks up a localized string similar to None of the requested ranges ({0}) overlap with the current extent of the selected resource..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.ByteRangeStreamNoOverlap">
+            <summary>
+              Looks up a localized string similar to The requested range ({0}) does not overlap with the current extent of the selected resource..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.ByteRangeStreamNotSeekable">
+            <summary>
+              Looks up a localized string similar to The stream over which &apos;{0}&apos; provides a range view must be seekable..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.ByteRangeStreamReadOnly">
+            <summary>
+              Looks up a localized string similar to This is a read-only stream..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.Dropbox_Committing">
+            <summary>
+              Looks up a localized string similar to Committing {0} change(s) from Dropbox..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.Dropbox_Synchronized">
+            <summary>
+              Looks up a localized string similar to Synchronized {0} change(s) from Dropbox..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.Dropbox_SynchronizedWithFailure">
+            <summary>
+              Looks up a localized string similar to Synchronized {0} of {1} change(s) from Dropbox with {2} failure(s)..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.Dropbox_Synchronizing">
+            <summary>
+              Looks up a localized string similar to Synchronizing {0} change(s) from Dropbox..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.Dropbox_SynchronizingProgress">
+            <summary>
+              Looks up a localized string similar to Synchronizing {0}% of {1} change(s) from Dropbox..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.Dropbox_SynchronizingProgressWithFailure">
+            <summary>
+              Looks up a localized string similar to Synchronizing {0}% of {1} change(s) from Dropbox with {2} failure(s)..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.Error_DeploymentInProgess">
+            <summary>
+              Looks up a localized string similar to There&apos;s a deployment already in progress..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.Error_DeploymentNotFound">
+            <summary>
+              Looks up a localized string similar to Deployment &apos;{0}&apos; not found..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.Error_DumbProtocolNotSupported">
+            <summary>
+              Looks up a localized string similar to The dumb protocol is not supported..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.Error_EmptyPayload">
+            <summary>
+              Looks up a localized string similar to The json payload is empty..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.Error_InvalidRepoUrl">
+            <summary>
+              Looks up a localized string similar to Repository url &apos;{0}&apos; is invalid..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.Error_MismatchDropboxCursor">
+            <summary>
+              Looks up a localized string similar to Mismatch dropbox origin cursor..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.Error_NonGitRepositoryFound">
+            <summary>
+              Looks up a localized string similar to Unable to proceed with the operation. A &apos;{0}&apos; repository was found at the target location..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.Error_OperationLockTimeout">
+            <summary>
+              Looks up a localized string similar to Unable to acquire lock after {0} seconds.  Please retry operation later..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.Error_RepositoryNotFound">
+            <summary>
+              Looks up a localized string similar to Repository could not be found..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.Error_UnsupportedFormat">
+            <summary>
+              Looks up a localized string similar to The json payload is unsupported..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.FetchingChanges">
+            <summary>
+              Looks up a localized string similar to Fetching changes..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.LogStream_AppShutdown">
+            <summary>
+              Looks up a localized string similar to {0}{1}  The application was terminated.{0}.
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.LogStream_Error">
+            <summary>
+              Looks up a localized string similar to {0}{1}  Error has occurred and stream is terminated. {2}{0}.
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.LogStream_Heartbeat">
+            <summary>
+              Looks up a localized string similar to {0}  No new trace in the past {1} min(s).{2}.
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.LogStream_Timeout">
+            <summary>
+              Looks up a localized string similar to {0}  Stream terminated due to timeout {1} min(s).{2}.
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.LogStream_Welcome">
+            <summary>
+              Looks up a localized string similar to {0}  Welcome, you are now connected to log-streaming service.{1}.
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.ReceivingChanges">
+            <summary>
+              Looks up a localized string similar to Receiving changes..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.SettingDoesNotExist">
+            <summary>
+              Looks up a localized string similar to The setting &apos;{0}&apos; does not exist..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.VfsController_Busy">
+            <summary>
+              Looks up a localized string similar to The repository is currently busy handling another request. Please try again later..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.VfsController_CannotUpdateDirectory">
+            <summary>
+              Looks up a localized string similar to The resource represents a directory which can not be updated..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.VfsController_EtagMismatch">
+            <summary>
+              Looks up a localized string similar to ETag does not represent the latest state of the resource..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.VfsController_MissingIfMatch">
+            <summary>
+              Looks up a localized string similar to Updating an existing resource requires an If-Match header carrying a single, strong ETag..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.VfsController_WriteConflict">
+            <summary>
+              Looks up a localized string similar to Could not write to local resource &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.VfsControllerBase_CannotDeleteDirectory">
+            <summary>
+              Looks up a localized string similar to Cannot delete directory. It is either not empty or access is not allowed..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.VfsScmController_DeploymentError">
+            <summary>
+              Looks up a localized string similar to Deployment failed with status: &apos;{0}&apos;. Please retry operation..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.VfsScmController_EtagMismatch">
+            <summary>
+              Looks up a localized string similar to ETag does not represent an existing commit ID: &apos;{0}&apos;. Updates must be based on an existing commit ID..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.VfsScmController_MissingIfMatch">
+            <summary>
+              Looks up a localized string similar to Updating an existing resource requires an If-Match header carrying a single, strong ETag based on an existing commit ID..
+            </summary>
+        </member>
+        <member name="P:Kudu.Services.Resources.VfsScmController_WeakEtag">
+            <summary>
+              Looks up a localized string similar to Invalid ETag: &apos;{0}&apos;. Updating an existing resource requires a strong etag based on an existing commit ID..
+            </summary>
+        </member>
+        <member name="M:Kudu.Services.Settings.SettingsController.Set(Newtonsoft.Json.Linq.JObject)">
+            <summary>
+            Create or change some settings
+            </summary>
+            <param name="newSettings">The object containing the new settings</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kudu.Services.Settings.SettingsController.Delete(System.String)">
+            <summary>
+            Delete a setting
+            </summary>
+            <param name="key">The key of the setting to delete</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kudu.Services.Settings.SettingsController.GetAll(System.Int32)">
+            <summary>
+            Get the list of all settings
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Kudu.Services.Settings.SettingsController.Get(System.String)">
+            <summary>
+            Get the value of a setting
+            </summary>
+            <param name="key">The setting's key</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kudu.Services.SourceControl.LiveScmController.GetRepositoryInfo(System.Net.Http.HttpRequestMessage)">
+            <summary>
+            Get information about the repository
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Kudu.Services.SourceControl.LiveScmController.Delete(System.Int32,System.Int32)">
+            <summary>
+            Delete the repository
+            </summary>
+        </member>
+        <member name="M:Kudu.Services.SourceControl.LiveScmController.Clean">
+            <summary>
+            Clean the repository, using 'git clean -xdf'
+            </summary>
+        </member>
+    </members>
+</doc>
